@@ -3,6 +3,8 @@
   padding: 20rpx;
   background-color: #f5f5f5;
   min-height: 100vh;
+  /* 增加顶部内边距，避免被刘海屏遮挡 */
+  padding-top: 80rpx;
 }
 
 .header {
@@ -11,15 +13,16 @@
 }
 
 .title {
-  font-size: 36rpx;
+  font-size: 48rpx; /* 增大字号 */
   font-weight: bold;
   color: #333;
 }
 
 .section-title {
-  font-size: 28rpx;
+  font-size: 40rpx; /* 增大字号 */
   color: #666;
   margin-bottom: 20rpx;
+  margin-left: 20rpx;
   font-weight: bold;
 }
 
@@ -33,25 +36,46 @@
   border-radius: 16rpx;
   padding: 30rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  /* 占据屏幕宽度，减去左右边距 */
+  width: calc(100vw - 60rpx);
+  margin: 0 auto;
 }
 
 .punch-item {
   flex: 1;
   text-align: center;
-  padding: 20rpx;
+  padding: 10rpx 10rpx; /* 增加内边距 */
   border-radius: 12rpx;
   transition: all 0.3s;
+  margin:0 10rpx; /* 项之间的间距 */
 }
 
-.punch-item.active {
-  background-color: #07C160;
+/* 上班打卡背景色 - 蓝色系 */
+.punch-in {
+  background-color: #e6f3ff; /* 浅蓝色背景 */
+  border: 2rpx solid #007AFF; /* 蓝色边框 */
+}
+
+.punch-in.active {
+  background-color: #007AFF; /* 激活状态深蓝色 */
+}
+
+/* 下班打卡背景色 - 绿色系 */
+.punch-out {
+  background-color: #e6f7ed; /* 浅绿色背景 */
+  border: 2rpx solid #34C759; /* 绿色边框 */
+}
+
+.punch-out.active {
+  background-color: #34C759; /* 激活状态深绿色 */
 }
 
 .punch-label {
   display: block;
-  font-size: 28rpx;
-  margin-bottom: 10rpx;
+  font-size: 32rpx; /* 增大字号 */
+  margin-bottom: 15rpx;
   color: #333;
+  font-weight: bold;
 }
 
 .punch-item.active .punch-label {
@@ -60,9 +84,9 @@
 
 .punch-time {
   display: block;
-  font-size: 32rpx;
+  font-size: 64rpx; /* 增大2倍字号 */
   font-weight: bold;
-  margin-bottom: 8rpx;
+  margin-bottom: 12rpx;
   font-family: monospace;
   color: #666;
 }
@@ -73,7 +97,7 @@
 
 .punch-status {
   display: block;
-  font-size: 24rpx;
+  font-size: 28rpx; /* 增大字号 */
   color: #999;
 }
 
@@ -88,12 +112,17 @@
 .record-item {
   background: white;
   border-radius: 12rpx;
-  padding: 24rpx;
-  margin-bottom: 16rpx;
+  padding: 30rpx; /* 增加内边距 */
+  margin-bottom: 10rpx; /* 增加底部间距 */
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+  height: 120rpx;
+  /* 占据屏幕宽度，减去左右边距 */
+  width: calc(100vw - 80rpx);
+  margin-left: 20rpx;
+  margin-right: 20rpx;
 }
 
 .record-date {
@@ -102,14 +131,15 @@
 
 .date {
   display: block;
-  font-size: 28rpx;
+  font-size: 32rpx; /* 增大字号 */
   color: #333;
   margin-bottom: 8rpx;
+  font-weight: bold;
 }
 
 .weekday {
   display: block;
-  font-size: 24rpx;
+  font-size: 28rpx; /* 增大字号 */
   color: #999;
 }
 
@@ -120,19 +150,20 @@
 
 .time {
   display: block;
-  font-size: 24rpx;
-  margin-bottom: 6rpx;
+  font-size: 28rpx; /* 增大字号 */
+  margin-bottom: 8rpx; /* 增加间距 */
   color: #999;
 }
 
 .time.has-time {
   color: #333;
+  font-weight: bold;
 }
 
 .in-time.has-time {
-  color: #007AFF;
+  color: #007AFF; /* 上班时间蓝色 */
 }
 
 .out-time.has-time {
-  color: #34C759;
+  color: #34C759; /* 下班时间绿色 */
 }
