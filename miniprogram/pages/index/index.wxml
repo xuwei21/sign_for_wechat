@@ -1,0 +1,42 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">打卡记录</text>
+  </view>
+
+  <view class="today-section">
+    <view class="section-title">今日打卡</view>
+    <view class="punch-card">
+      <view class="punch-item {{todayRecord.clockInTime ? 'active' : ''}}" bindtap="handleClockIn">
+        <text class="punch-label">上班</text>
+        <text class="punch-time">{{todayRecord.clockInTime || '--:--'}}</text>
+        <text class="punch-status">{{todayRecord.clockInTime ? '已打卡' : '未打卡'}}</text>
+      </view>
+      <view class="punch-item {{todayRecord.clockOutTime ? 'active' : ''}}" bindtap="handleClockOut">
+        <text class="punch-label">下班</text>
+        <text class="punch-time">{{todayRecord.clockOutTime || '--:--'}}</text>
+        <text class="punch-status">{{todayRecord.clockOutTime ? '已打卡' : '未打卡'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="history-section">
+    <view class="section-title">历史记录</view>
+    <view class="records-list">
+      <view class="record-item" wx:for="{{records}}" wx:key="_id" wx:if="{{item.date !== todayRecord.date}}">
+        <view class="record-date">
+          <text class="date">{{item.date}}</text>
+          <text class="weekday">{{formatWeekday(item.date)}}</text>
+        </view>
+        <view class="record-times">
+          <text class="time in-time {{item.clockInTime ? 'has-time' : ''}}">
+            上班: {{item.clockInTime || '--:--'}}
+          </text>
+          <text class="time out-time {{item.clockOutTime ? 'has-time' : ''}}">
+            下班: {{item.clockOutTime || '--:--'}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
