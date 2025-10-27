@@ -16,7 +16,14 @@ Page({
   },
 
   // 加载所有记录
-  async loadRecords() {
+  async loadRecords(showLoading: boolean = true) {
+    if (showLoading) {
+        wx.showLoading({
+          title: '加载中...',
+          mask: true
+        });
+      }
+
     try {
       const result = await wx.cloud.callFunction({
         name: 'getRecord'
@@ -42,7 +49,9 @@ Page({
         title: '加载失败',
         icon: 'none'
       });
-    }
+    } finally {
+        wx.hideLoading();
+      }
   },
 
   // 检查并创建今日记录
@@ -68,7 +77,7 @@ Page({
 
         if (result.result.success) {
           // 重新加载记录
-          this.loadRecords();
+          this.loadRecords(false);
         }
       } catch (error) {
         console.error('创建今日记录失败:', error);
@@ -92,6 +101,11 @@ Page({
 
   // 更新打卡记录
   async updatePunchRecord(updateType: 'clockIn' | 'clockOut') {
+    wx.showLoading({
+        title: '打卡中...',
+        mask: true // 防止触摸穿透
+      });
+
     const today = this.getTodayDateString();
     const currentTime = this.getCurrentTimeString();
 
@@ -111,7 +125,7 @@ Page({
           icon: 'success'
         });
         // 重新加载记录
-        this.loadRecords();
+        this.loadRecords(false);
       } else {
         wx.showToast({
           title: '打卡失败',
@@ -124,7 +138,9 @@ Page({
         title: '打卡失败',
         icon: 'none'
       });
-    }
+    } finally {
+        wx.hideLoading();
+      }
   },
 
   // 获取今日日期字符串 (yyyy-MM-dd)
