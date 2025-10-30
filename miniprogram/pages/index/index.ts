@@ -18,7 +18,6 @@ Page({
 
   // 加载所有记录
   async loadRecords(showLoading: boolean = true) {
-    // 防止重复加载
     if (this.data.isLoading) return;
     
     this.setData({ isLoading: true });
@@ -37,12 +36,17 @@ Page({
 
       if (result.result.success) {
         const records: PunchRecord[] = result.result.data;
+        // 为每条记录添加星期几信息
+        const recordsWithWeekday = records.map(record => ({
+          ...record,
+          weekday: this.formatWeekday(record.date)
+        }));
+        
         this.setData({
-          records: records
+          records: recordsWithWeekday
         });
 
-        // 检查并创建今日记录 - 传入当前已加载的记录
-        await this.checkAndCreateTodayRecord(records);
+        await this.checkAndCreateTodayRecord(recordsWithWeekday);
       } else {
         wx.showToast({
           title: '加载失败',
@@ -69,11 +73,11 @@ Page({
     if (!todayRecord) {
       console.log('创建新的今日记录:', today);
       
-      // 创建今日记录
       const newRecord: Partial<PunchRecord> = {
         date: today,
         clockInTime: null,
-        clockOutTime: null
+        clockOutTime: null,
+        weekday: this.formatWeekday(today) // 添加星期几
       };
 
       try {
@@ -86,11 +90,14 @@ Page({
 
         if (result.result.success) {
           console.log('今日记录创建成功');
-          // 直接更新本地数据，避免重新加载
-          const updatedRecords = [...existingRecords, result.result.data as PunchRecord];
+          const newRecordWithWeekday = {
+            ...result.result.data,
+            weekday: this.formatWeekday(today)
+          };
+          const updatedRecords = [...existingRecords, newRecordWithWeekday as PunchRecord];
           this.setData({
             records: updatedRecords,
-            todayRecord: result.result.data
+            todayRecord: newRecordWithWeekday
           });
         }
       } catch (error) {
@@ -164,6 +171,7 @@ Page({
   },
 
   // 获取今日日期字符串 (yyyy-MM-dd)
+  // 获取今日日期字符串 (yyyy-MM-dd)
   getTodayDateString(): string {
     const now = new Date();
     const year = now.getFullYear();
@@ -180,6 +188,7 @@ Page({
     return `${hours}:${minutes}`;
   },
 
+  // 格式化星期几
   formatWeekday(dateString: string): string {
     const date = new Date(dateString);
     const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];

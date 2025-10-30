@@ -28,7 +28,7 @@
       <view class="record-item" wx:for="{{records}}" wx:key="_id" wx:if="{{item.date !== todayRecord.date}}">
         <view class="record-date">
           <text class="date">{{item.date}}</text>
-          <text class="weekday">{{formatWeekday(item.date)}}</text>
+          <text class="weekday">{{item.weekday}}</text>
         </view>
         <view class="record-times">
           <text class="time in-time {{item.clockInTime ? 'has-time' : ''}}">

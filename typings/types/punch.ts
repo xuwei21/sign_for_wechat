@@ -4,6 +4,7 @@ export interface PunchRecord {
   date: string; // 格式: yyyy-MM-dd
   clockInTime: string | null;
   clockOutTime: string | null;
+  weekday: string; // 星期几
   createdAt?: any;
   updatedAt?: any;
   _openid?: string;
