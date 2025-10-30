@@ -4,7 +4,8 @@ import { PunchRecord, CloudFunctionResult } from '../../../typings/types/punch';
 Page({
   data: {
     records: [] as PunchRecord[],
-    todayRecord: {} as PunchRecord
+    todayRecord: {} as PunchRecord,
+    isLoading: false, // 添加加载状态防止重复请求
   },
 
   onLoad() {
@@ -17,12 +18,17 @@ Page({
 
   // 加载所有记录
   async loadRecords(showLoading: boolean = true) {
+    // 防止重复加载
+    if (this.data.isLoading) return;
+    
+    this.setData({ isLoading: true });
+
     if (showLoading) {
-        wx.showLoading({
-          title: '加载中...',
-          mask: true
-        });
-      }
+      wx.showLoading({
+        title: '加载中...',
+        mask: true
+      });
+    }
 
     try {
       const result = await wx.cloud.callFunction({
@@ -35,7 +41,7 @@ Page({
           records: records
         });
 
-        // 检查并创建今日记录
+        // 检查并创建今日记录 - 传入当前已加载的记录
         await this.checkAndCreateTodayRecord(records);
       } else {
         wx.showToast({
@@ -50,8 +56,9 @@ Page({
         icon: 'none'
       });
     } finally {
-        wx.hideLoading();
-      }
+      wx.hideLoading();
+      this.setData({ isLoading: false });
+    }
   },
 
   // 检查并创建今日记录
@@ -60,6 +67,8 @@ Page({
     const todayRecord = existingRecords.find(record => record.date === today);
 
     if (!todayRecord) {
+      console.log('创建新的今日记录:', today);
+      
       // 创建今日记录
       const newRecord: Partial<PunchRecord> = {
         date: today,
@@ -76,13 +85,19 @@ Page({
         }) as any;
 
         if (result.result.success) {
-          // 重新加载记录
-          this.loadRecords(false);
+          console.log('今日记录创建成功');
+          // 直接更新本地数据，避免重新加载
+          const updatedRecords = [...existingRecords, result.result.data as PunchRecord];
+          this.setData({
+            records: updatedRecords,
+            todayRecord: result.result.data
+          });
         }
       } catch (error) {
         console.error('创建今日记录失败:', error);
       }
     } else {
+      console.log('今日记录已存在:', todayRecord);
       this.setData({
         todayRecord: todayRecord
       });
@@ -101,10 +116,14 @@ Page({
 
   // 更新打卡记录
   async updatePunchRecord(updateType: 'clockIn' | 'clockOut') {
+    if (this.data.isLoading) return;
+    
+    this.setData({ isLoading: true });
+    
     wx.showLoading({
-        title: '打卡中...',
-        mask: true // 防止触摸穿透
-      });
+      title: '打卡中...',
+      mask: true
+    });
 
     const today = this.getTodayDateString();
     const currentTime = this.getCurrentTimeString();
@@ -125,7 +144,7 @@ Page({
           icon: 'success'
         });
         // 重新加载记录
-        this.loadRecords(false);
+        await this.loadRecords(false);
       } else {
         wx.showToast({
           title: '打卡失败',
@@ -139,8 +158,9 @@ Page({
         icon: 'none'
       });
     } finally {
-        wx.hideLoading();
-      }
+      wx.hideLoading();
+      this.setData({ isLoading: false });
+    }
   },
 
   // 获取今日日期字符串 (yyyy-MM-dd)
