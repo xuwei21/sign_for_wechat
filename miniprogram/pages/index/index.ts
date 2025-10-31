@@ -5,15 +5,27 @@ Page({
   data: {
     records: [] as PunchRecord[],
     todayRecord: {} as PunchRecord,
+    currentMonth: '',
     isLoading: false, // 添加加载状态防止重复请求
   },
 
   onLoad() {
     this.loadRecords();
+    this.setCurrentMonth();
   },
 
   onShow() {
     this.loadRecords();
+  },
+
+  // 设置当前月份
+  setCurrentMonth() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    this.setData({
+      currentMonth: `${year}年${month}月`
+    });
   },
 
   // 加载所有记录
@@ -185,7 +197,6 @@ Page({
     }
   },
 
-  // 获取今日日期字符串 (yyyy-MM-dd)
   // 获取今日日期字符串 (yyyy-MM-dd)
   getTodayDateString(): string {
     const now = new Date();

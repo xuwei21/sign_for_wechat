@@ -1,7 +1,7 @@
 /* pages/index/index.wxss */
 .container {
   padding: 20rpx;
-  background-color: #f5f5f5;
+  background-color: #f5f7fa;
   min-height: 100vh;
   /* 增加顶部内边距，避免被刘海屏遮挡 */
   padding-top: 80rpx;
@@ -15,7 +15,7 @@
 .title {
   font-size: 48rpx; /* 增大字号 */
   font-weight: bold;
-  color: #333;
+  color: #2c3e50;
 }
 
 .section-title {
@@ -34,7 +34,7 @@
   display: flex;
   background: white;
   border-radius: 16rpx;
-  padding: 30rpx;
+  padding: 20rpx;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
   /* 占据屏幕宽度，减去左右边距 */
   width: calc(100vw - 60rpx);
@@ -105,65 +105,128 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
+/* 历史记录部分样式 - 按照参考样式调整 */
 .history-section {
   margin-bottom: 40rpx;
+  width: 100%; /* 确保占满容器宽度 */
 }
 
-.record-item {
-  background: white;
-  border-radius: 12rpx;
-  padding: 30rpx; /* 增加内边距 */
-  margin-bottom: 10rpx; /* 增加底部间距 */
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+  padding: 0; /* 移除内边距，让卡片占满宽度 */
+  width: 100%; /* 明确设置宽度 */
+}
+
+.attendance-card {
+  background-color: white;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+  padding: 40rpx;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* 关键：确保卡片占满父容器 */
+  box-sizing: border-box; /* 重要：包含padding在宽度内 */
+}
+
+.attendance-card:active {
+  transform: scale(0.98);
+}
+
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
-  height: 120rpx;
-  /* 占据屏幕宽度，减去左右边距 */
-  width: calc(100vw - 80rpx);
-  margin-left: 20rpx;
-  margin-right: 20rpx;
+  margin-bottom: 30rpx;
+  padding-bottom: 24rpx;
+  border-bottom: 2rpx solid #eee;
 }
 
-.record-date {
+.card-date {
+  font-weight: 600;
+  font-size: 36rpx;
+  color: #34495e;
+}
+
+.card-duration {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #3498db;
+}
+
+.card-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+
+.time-item {
+  text-align: center;
   flex: 1;
 }
 
-.date {
-  display: block;
-  font-size: 32rpx; /* 增大字号 */
-  color: #333;
-  margin-bottom: 8rpx;
-  font-weight: bold;
+.time-label {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  margin-bottom: 10rpx;
 }
 
-.weekday {
-  display: block;
-  font-size: 28rpx; /* 增大字号 */
-  color: #999;
+.time-value {
+  font-weight: 600;
+  font-size: 36rpx;
+  padding: 16rpx 0;
+  background-color: #f8f9fa;
+  border-radius: 16rpx;
 }
 
-.record-times {
-  flex: 1;
-  text-align: right;
+.time-in {
+  color: #2ecc71;
 }
 
-.time {
-  display: block;
-  font-size: 28rpx; /* 增大字号 */
-  margin-bottom: 8rpx; /* 增加间距 */
-  color: #999;
+.time-out {
+  color: #e74c3c;
 }
 
-.time.has-time {
-  color: #333;
-  font-weight: bold;
+/* 响应式调整 */
+@media (max-width: 380px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .card-duration {
+    margin-top: 16rpx;
+    font-size: 42rpx;
+  }
+  
+  .card-times {
+    flex-direction: column;
+    gap: 20rpx;
+  }
+  
+  .time-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .time-label {
+    margin-bottom: 0;
+    min-width: 120rpx;
+  }
+  
+  .time-value {
+    flex: 1;
+    margin-left: 20rpx;
+  }
 }
 
-.in-time.has-time {
-  color: #007AFF; /* 上班时间蓝色 */
+/* 加载动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.out-time.has-time {
-  color: #34C759; /* 下班时间绿色 */
+.attendance-card {
+  animation: fadeIn 0.4s ease-out;
 }

@@ -24,19 +24,21 @@
 
   <view class="history-section">
     <view class="section-title">历史记录</view>
-    <view class="records-list">
-      <view class="record-item" wx:for="{{records}}" wx:key="_id" wx:if="{{item.date !== todayRecord.date}}">
-        <view class="record-date">
-          <text class="date">{{item.date}}</text>
-          <text class="weekday">{{item.weekday}}</text>
+    <view class="cards-container">
+      <view class="attendance-card" wx:for="{{records}}" wx:key="_id" wx:if="{{item.date !== todayRecord.date}}">
+        <view class="card-header">
+          <view class="card-date">{{item.date}} {{item.weekday}}</view>
+          <view class="card-duration">{{item.workDuration || '0'}}h</view>
         </view>
-        <view class="record-times">
-          <text class="time in-time {{item.clockInTime ? 'has-time' : ''}}">
-            上班: {{item.clockInTime || '--:--'}}
-          </text>
-          <text class="time out-time {{item.clockOutTime ? 'has-time' : ''}}">
-            下班: {{item.clockOutTime || '--:--'}}
-          </text>
+        <view class="card-times">
+          <view class="time-item">
+            <view class="time-label">上班</view>
+            <view class="time-value time-in {{item.clockInTime ? 'has-time' : ''}}">{{item.clockInTime || '--:--'}}</view>
+          </view>
+          <view class="time-item">
+            <view class="time-label">下班</view>
+            <view class="time-value time-out {{item.clockOutTime ? 'has-time' : ''}}">{{item.clockOutTime || '--:--'}}</view>
+          </view>
         </view>
       </view>
     </view>
