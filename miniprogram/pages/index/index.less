@@ -230,3 +230,91 @@
 .attendance-card {
   animation: fadeIn 0.4s ease-out;
 }
+
+.history-section .attendance-card {
+  /* 将卡片高度设置为原来的50% */
+  height: 50%;
+  min-height: 120rpx; /* 设置最小高度避免内容被过度压缩 */
+  
+  /* 调整内边距来适应新的高度 */
+  padding: 20rpx 30rpx; /* 减少上下内边距，保持左右内边距 */
+  
+  /* 确保内容在垂直方向均匀分布 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 调整卡片头部布局 */
+.history-section .card-header {
+  margin-bottom: 15rpx; /* 减少底部间距 */
+  padding-bottom: 12rpx; /* 减少底部内边距 */
+  border-bottom: 1rpx solid #eee; /* 减细分隔线 */
+}
+
+/* 调整日期字体大小 */
+.history-section .card-date {
+  font-size: 28rpx; /* 减小字体大小 */
+}
+
+/* 调整工作时长字体大小 */
+.history-section .card-duration {
+  font-size: 32rpx; /* 减小字体大小 */
+}
+
+/* 调整时间项容器 */
+.history-section .card-times {
+  margin-top: 10rpx; /* 减少顶部间距 */
+}
+
+/* 调整时间标签字体大小 */
+.history-section .time-label {
+  font-size: 24rpx; /* 减小字体大小 */
+  margin-bottom: 5rpx; /* 减少底部间距 */
+}
+
+/* 调整时间值字体大小和内边距 */
+.history-section .time-value {
+  font-size: 28rpx; /* 减小字体大小 */
+  padding: 8rpx 0; /* 减少上下内边距 */
+}
+
+/* 针对小屏幕的响应式调整 */
+@media (max-width: 380px) {
+  .history-section .attendance-card {
+    padding: 15rpx 20rpx; /* 在小屏幕上进一步减少内边距 */
+    min-height: 100rpx;
+  }
+  
+  .history-section .card-header {
+    margin-bottom: 10rpx;
+  }
+  
+  .history-section .card-duration {
+    font-size: 28rpx;
+    margin-top: 8rpx;
+  }
+  
+  .history-section .time-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .history-section .time-label {
+    min-width: 80rpx; /* 调整最小宽度 */
+    margin-bottom: 0;
+  }
+  
+  .history-section .time-value {
+    flex: 1;
+    margin-left: 15rpx;
+    font-size: 24rpx;
+    padding: 6rpx 0;
+  }
+}
+
+/* 确保卡片容器也能适应新的卡片高度 */
+.history-section .cards-container {
+  gap: 20rpx; /* 减少卡片间距以适应更小的卡片 */
+}
