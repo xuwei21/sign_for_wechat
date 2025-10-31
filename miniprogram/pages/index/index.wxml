@@ -28,7 +28,7 @@
       <view class="attendance-card" wx:for="{{records}}" wx:key="_id" wx:if="{{item.date !== todayRecord.date}}">
         <view class="card-header">
           <view class="card-date">{{item.date}} {{item.weekday}}</view>
-          <view class="card-duration">{{item.workDuration || '0'}}h</view>
+          <view class="card-duration">{{item.workDuration || '--'}}</view>
         </view>
         <view class="card-times">
           <view class="time-item">

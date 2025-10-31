@@ -11,7 +11,7 @@ Page({
 
   onLoad() {
     this.loadRecords();
-    this.setCurrentMonth();
+    // this.setCurrentMonth();
   },
 
   onShow() {
