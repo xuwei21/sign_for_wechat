@@ -146,12 +146,27 @@ Page({
       }) as any;
 
       if (result.result.success) {
+        const updatedTodayRecord = { ...this.data.todayRecord };
+        if (updateType === 'clockIn') {
+          updatedTodayRecord.clockInTime = currentTime;
+        } else {
+          updatedTodayRecord.clockOutTime = currentTime;
+        }
+        
+        // 同时更新 records 中对应的记录
+        const updatedRecords = this.data.records.map(record => 
+          record.date === today ? updatedTodayRecord : record
+        );
+
+        this.setData({
+          todayRecord: updatedTodayRecord,
+          records: updatedRecords
+        });
+
         wx.showToast({
           title: '打卡成功',
           icon: 'success'
         });
-        // 重新加载记录
-        await this.loadRecords(false);
       } else {
         wx.showToast({
           title: '打卡失败',
