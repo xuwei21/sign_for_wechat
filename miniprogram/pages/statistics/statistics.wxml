@@ -1,0 +1,40 @@
+<view class="container">
+    <view class="header">
+        <text class="title">在岗时长统计</text>
+    </view>
+
+    <view class="filter-section">
+        <picker mode="selector" range="{{yearRange}}" value="{{selectedYearIndex}}" bindchange="onYearChange">
+            <view class="filter-item">
+                <text class="filter-label">{{selectedYear}}年</text>
+                <text class="filter-arrow">▼</text>
+            </view>
+        </picker>
+    </view>
+
+    <view class="statistics-section">
+        <view class="section-title">月度统计</view>
+        <view class="cards-container">
+            <view class="stat-card" wx:for="{{monthlyStats}}" wx:key="month">
+                <view class="card-header">
+                    <view class="card-month">{{item.month}}月</view>
+                    <view class="card-total">{{item.totalHours}}H</view>
+                </view>
+                <view class="card-details">
+                    <view class="detail-item">
+                        <text class="detail-label">出勤天数</text>
+                        <text class="detail-value">{{item.workDays}}天</text>
+                    </view>
+                    <view class="detail-item">
+                        <text class="detail-label">日均时长</text>
+                        <text class="detail-value">{{item.dailyAverage}}H</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{monthlyStats.length === 0}}">
+        <text class="empty-text">暂无统计数据</text>
+    </view>
+</view>

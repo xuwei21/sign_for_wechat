@@ -1,4 +1,3 @@
-// types/punch.ts
 export interface PunchRecord {
   _id?: string;
   date: string; // 格式: yyyy-MM-dd
@@ -15,4 +14,18 @@ export interface CloudFunctionResult<T = any> {
   data?: T;
   message: string;
   error?: any;
+}
+
+// 新增统计相关类型
+export interface MonthlyStat {
+  month: string;
+  totalHours: string;
+  workDays: number;
+  dailyAverage: string;
+}
+
+export interface YearSummary {
+  totalHours: string;
+  monthlyAverage: string;
+  workMonths: number;
 }

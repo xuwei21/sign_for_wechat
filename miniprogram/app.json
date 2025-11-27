@@ -1,11 +1,32 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/statistics/statistics"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#007AFF",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png",
+        "text": "打卡"
+      },
+      {
+        "pagePath": "pages/statistics/statistics",
+        "iconPath": "images/statistics.png",
+        "selectedIconPath": "images/statistics-active.png",
+        "text": "统计"
+      }
+    ]
   },
   "style": "v2",
   "rendererOptions": {

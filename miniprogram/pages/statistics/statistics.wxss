@@ -1,0 +1,198 @@
+.container {
+  padding: 20rpx;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  padding-top: 80rpx;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 20rpx 40rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.filter-label {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+  margin-right: 20rpx;
+}
+
+.filter-arrow {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.section-title {
+  font-size: 40rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  font-weight: bold;
+}
+
+/* 修改卡片容器为网格布局，每行3个 */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+  padding: 0 10rpx;
+}
+
+/* 修改卡片宽度为每行3个的自适应布局 */
+.stat-card {
+  background-color: white;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+  padding: 30rpx;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: calc(33.333% - 14rpx); /* 每行3个，减去间隙 */
+  box-sizing: border-box;
+}
+
+.stat-card:active {
+  transform: scale(0.95);
+}
+
+/* 调整卡片头部布局 */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.card-month {
+  font-weight: 600;
+  font-size: 32rpx;
+  color: #34495e;
+  margin-bottom: 10rpx;
+}
+
+.card-total {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #3498db;
+}
+
+/* 调整详情布局 */
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-label {
+  font-size: 24rpx;
+  color: #7f8c8d;
+}
+
+.detail-value {
+  font-weight: 600;
+  font-size: 26rpx;
+  color: #2c3e50;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #999;
+}
+
+/* 响应式调整 - 小屏幕适配 */
+@media (max-width: 400px) {
+  .cards-container {
+    gap: 15rpx;
+    padding: 0 5rpx;
+  }
+  
+  .stat-card {
+    width: calc(33.333% - 10rpx);
+    padding: 20rpx 15rpx;
+  }
+  
+  .card-month {
+    font-size: 32rpx;
+    font-weight: bold;
+  }
+  
+  .card-total {
+    font-size: 32rpx;  
+  }
+  
+  .detail-label {
+    font-size: 22rpx;
+  }
+  
+  .detail-value {
+    font-size: 24rpx;
+  }
+}
+
+/* 超小屏幕适配 */
+@media (max-width: 320px) {
+  .stat-card {
+    padding: 15rpx 10rpx;
+  }
+  
+  .card-month {
+    font-size: 28rpx;
+    font-weight: bold;
+  }
+  
+  .card-total {
+    font-size: 28rpx;
+  }
+  
+  .detail-label {
+    font-size: 20rpx;
+  }
+  
+  .detail-value {
+    font-size: 22rpx;
+  }
+}
+
+/* 加载动画 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-card {
+  animation: fadeIn 0.4s ease-out;
+}
